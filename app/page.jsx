@@ -1,11 +1,12 @@
 import './page.css';
 
+const bgTransparency = 0.2
 export default function Overview() {
   const stats = [
-    { label: 'DOCUMENTOS', value: '1,284', change: '+32%', icon: '📄', color: '#ff6b35' },
-    { label: 'PEDIDOS PENDENTES', value: '14', change: '+5%', icon: '📋', color: '#ff9500' },
-    { label: 'DEPARTAMENTOS', value: '12', change: '0%', icon: '🏢', color: '#2196f3' },
-    { label: 'UTILIZADORES', value: '48', change: '-2%', icon: '👥', color: '#9c27b0' },
+    { label: 'DOCUMENTOS', value: '1,284', change: '+32%', iconName: 'document-text-outline', color: '#ff6b35', backgroundColor: `rgba(255, 107, 53, ${bgTransparency})` },
+    { label: 'PEDIDOS PENDENTES', value: '14', change: '+5%', iconName: 'document-lock-outline', color: '#ff9500', backgroundColor:`rgba(255, 149, 0, ${bgTransparency})`},
+    { label: 'DEPARTAMENTOS', value: '12', change: '0%', iconName: 'business-outline', color: '#2196f3', backgroundColor:`rgba(33, 149, 243, ${bgTransparency})`},
+    { label: 'UTILIZADORES', value: '48', change: '-2%', iconName: 'people-outline', color: '#9c27b0', backgroundColor: `rgba(155, 39, 176, ${bgTransparency})`},
   ];
 
   const recentDocuments = [
@@ -18,7 +19,7 @@ export default function Overview() {
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1>Dashboard Overview</h1>
+        <h1>Visão geral</h1>
         <p>Resumo do sistema e atividade recente.</p>
       </div>
 
@@ -27,7 +28,7 @@ export default function Overview() {
           <div key={index} className="stat-card">
             <div className="stat-header">
               <span className="stat-label">{stat.label}</span>
-              <span className="stat-icon" style={{ color: stat.color }}>{stat.icon}</span>
+              <span className="stat-icon" style={{ color: stat.color, backgroundColor: stat.backgroundColor }}><ion-icon name={stat.iconName} className="icon"></ion-icon></span>
             </div>
             <div className="stat-value">{stat.value}</div>
             <div className="stat-change" style={{ color: stat.color }}>
@@ -39,7 +40,10 @@ export default function Overview() {
       </div>
 
       <div className="content-section">
-        <h2>Documentos Recentes</h2>
+        <h2>
+           <span><ion-icon name="time-outline" className="icon"></ion-icon></span>
+           <span>Adicionados recentemente</span>
+        </h2>
         <table className="documents-table">
           <thead>
             <tr>
@@ -54,7 +58,7 @@ export default function Overview() {
               <tr key={index}>
                 <td>
                   <div className="document-name">
-                    <span className="doc-icon">📄</span>
+                    <ion-icon name="document-text" className="icon"></ion-icon>
                     {doc.name}
                   </div>
                 </td>

@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer-content">
         <p className="footer-text">
-          © {currentYear} FileStream. Todos os direitos reservados.
+          © {currentYear} Admin8000. Todos os direitos reservados.
         </p>
         <div className="footer-links">
           <a href="#" className="footer-link">Privacidade</a>
