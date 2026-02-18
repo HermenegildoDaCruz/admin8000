@@ -1,8 +1,10 @@
+'use client'
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 import "./Sidebar.css";
-<ion-icon name=""></ion-icon>;
-export default function Sidebar() {
-  const menuItems = [
+
+const menuItems = [
     { id: 1, label: "Overview", iconName: "stats-chart-outline", href: "/" },
     {
       id: 2,
@@ -31,6 +33,9 @@ export default function Sidebar() {
     { id: 6, label: "Arquivo", iconName: "archive-outline", href: "/archive" },
   ];
 
+export default function Sidebar() {
+  const pathname = usePathname()
+
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
@@ -41,7 +46,7 @@ export default function Sidebar() {
         <ul className="nav-list">
           {menuItems.map((item) => (
             <li key={item.id} className="nav-item">
-              <Link href={item.href} className="nav-link">
+              <Link href={item.href} className={pathname === item.href ? "nav-link link--actived":"nav-link"}>
                 <span className="nav-icon">
                   <ion-icon name={item.iconName} className="icon"></ion-icon>
                 </span>

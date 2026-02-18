@@ -52,7 +52,7 @@
 .nav-link:hover {
   background-color: #2a2a2a;
   border-left-color: #ff6b35;
-  padding-left: 17px;
+  padding-left: 1.7rem;
 }
 
 .nav-link.active {
@@ -60,7 +60,10 @@
   border-left-color: #ff6b35;
   color: #fff;
 }
-
+.link--actived{
+    background-color: #2a2a2a;
+  border-left-color: #ff6b35;
+}
 .nav-icon {
   font-size: 20px;
   display: flex;
