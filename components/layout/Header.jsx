@@ -1,4 +1,5 @@
 import './Header.css';
+import LinkBtn from '../ui-components/LinkBtn';
 
 export default function Header() {
   return (
@@ -12,6 +13,7 @@ export default function Header() {
       </div>
       
       <div className="header-right">
+        <LinkBtn href="/new-document">Adicionar documento</LinkBtn>
         <button className="header-button settings-btn">
           <ion-icon name="settings-outline" className = "icon"></ion-icon>
         </button>

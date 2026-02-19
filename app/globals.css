@@ -66,6 +66,7 @@ a {
 
 
 .main-content {
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -120,4 +121,11 @@ a {
   .content {
     padding: 1.5rem;
   }
+}
+
+.not-found{
+  font-size: 1.8rem;
+}
+.not-found h1{
+  margin-bottom: 1.2rem;
 }
