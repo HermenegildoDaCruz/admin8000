@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS Documento (
   descricao         TEXT NOT NULL,
   data_criacao      TEXT NOT NULL DEFAULT (datetime('now')),
   data_actualizacao TEXT,
-  link              TEXT,          -- url to file stored in S3
+  link              TEXT,          -- url to file stored in S3 or public folder
   id_categoria      INTEGER,
   id_utilizador     INTEGER,
   FOREIGN KEY (id_categoria) REFERENCES Categoria(id_categoria),
