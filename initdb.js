@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS Categoria (
 CREATE TABLE IF NOT EXISTS Documento (
   id_documento      INTEGER PRIMARY KEY AUTOINCREMENT,
   titulo            TEXT NOT NULL,
+  descricao         TEXT NOT NULL,
   data_criacao      TEXT NOT NULL DEFAULT (datetime('now')),
   data_actualizacao TEXT,
   link              TEXT,          -- url to file stored in S3

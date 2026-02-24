@@ -1,4 +1,5 @@
 import './page.css';
+import PageHeader from "@/components/ui-components/PageHeader";
 
 const bgTransparency = 0.2
 export default function Overview() {
@@ -17,11 +18,8 @@ export default function Overview() {
   ];
 
   return (
-    <div className="dashboard">
-      <div className="dashboard-header">
-        <h1>Visão geral</h1>
-        <p>Resumo do sistema e atividade recente.</p>
-      </div>
+    <main className="dashboard">
+      <PageHeader title="Visão Geral" description="Resumo do sistema e atividade recente." />
 
       <div className="stats-grid">
         {stats.map((stat, index) => (
@@ -74,6 +72,6 @@ export default function Overview() {
           </tbody>
         </table>
       </div>
-    </div>
+    </main>
   );
 }

@@ -1,0 +1,87 @@
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --primary-color: #ff6b35;
+  --text-primary: #1a1a1a;
+  --text-secondary: #666;
+  --border-color: #e0e0e0;
+  --bg-light: #f7f7f7;
+  --sidebar-bg: #1a1a1a;
+}
+
+
+.form input,
+.form select,
+.form textarea {
+  width: 100%;
+  padding: 1.2rem 1.6rem;
+  font: inherit;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form label {
+  display: block;
+  margin-bottom: .6rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+/* 
+.form{
+   
+} */
+
+.form-inputs{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.form-inputs--box{
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+}
+
+.input-image {
+    border: 2px dashed var(--primary-color);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    place-items: center;
+    transition: all 0.3s ease;
+}
+.input-image:hover,
+.input-image:active {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.input-image .input-image-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    width: 100%;
+}
+
+.input-image #file-upload {
+    display: none;
+}
+
+.input-image .icon {
+    color: #ff6b35;
+}
+
+.form-actions{
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.2rem;
+    margin-top: 2rem;
+}
