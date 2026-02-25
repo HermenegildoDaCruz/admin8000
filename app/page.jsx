@@ -2,6 +2,7 @@ import './page.css';
 import PageHeader from "@/components/ui-components/PageHeader";
 
 const bgTransparency = 0.2
+
 export default function Overview() {
   const stats = [
     { label: 'DOCUMENTOS', value: '1,284', change: '+32%', iconName: 'document-text-outline', color: '#ff6b35', backgroundColor: `rgba(255, 107, 53, ${bgTransparency})` },
@@ -16,6 +17,7 @@ export default function Overview() {
     { name: 'Contrato Prestação de Serviços', category: 'JURÍDICO', dept: 'Legal', status: 'CONCLUÍDO' },
     { name: 'Project Specification v2', category: 'TI', dept: 'Desenvolvimento', status: 'REVISÃO' },
   ];
+
 
   return (
     <main className="dashboard">

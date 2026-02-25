@@ -39,7 +39,7 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
-        <h1 className="sidebar-title">Admin8000</h1>
+        <h1 className="sidebar-title">Calumbo8000</h1>
       </div>
 
       <nav className="sidebar-nav">

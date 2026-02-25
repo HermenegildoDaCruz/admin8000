@@ -1,7 +1,40 @@
+'use client'
 import "./page.css";
 import PageHeader from "@/components/ui-components/PageHeader";
+import FormActions from "@/components/ui-components/formActions";
+import { useRef, useState } from "react";
+import { useFormState } from "react-dom";
+import { createDocument } from "@/lib/actions";
 
 export default function NewDocument() {
+
+  const [formState, formAction ] = useFormState(createDocument, {error: null, message: null});
+
+  const [selectedFile, setSelectedFile] = useState(null);
+  const fileInputRef = useRef();
+
+  function handleFileInputClick(e) {
+    fileInputRef.current.click();
+  }
+
+  async function handleFileChange(e) {
+    const file = await e.target.files[0];
+    
+    if (!file){
+      return;
+    }
+
+    const fileData = {
+      name: file.name.split('.').slice(0, -1).join('.'),
+      extension: file.name.split('.').pop(),
+      size: file.size,
+    };
+
+   
+
+    setSelectedFile(fileData);
+  }
+
   return (
     <main>
       <PageHeader
@@ -9,7 +42,7 @@ export default function NewDocument() {
         description="Adicione um novo documento no sistema."
       />
       <div className="content-section">
-        <form action="" className="form">
+        <form action={formAction} className="form">
           <div className="form-inputs">
             <div className="form-inputs--box">
               <div className="form-group">
@@ -19,6 +52,7 @@ export default function NewDocument() {
                   id="docName"
                   name="docName"
                   placeholder="Digite o nome do documento"
+                  defaultValue={selectedFile?.name}
                   required
                 />
               </div>
@@ -42,7 +76,7 @@ export default function NewDocument() {
               </div>
             </div>
 
-            <div className="input-image">
+            <div className="input-image" onClick={handleFileInputClick}>
               <div className="input-image-box">
                 <span>
                   <ion-icon
@@ -52,25 +86,27 @@ export default function NewDocument() {
                 </span>
                 <span>Clique para selecionar um arquivo</span>
               </div>
-
               <input
+                ref={fileInputRef}
                 type="file"
                 id="file-upload"
                 name="fileUpload"
                 className="file-upload-input"
+                onChange={handleFileChange}
                 required
               />
             </div>
+            <div className="selected-file">
+                {selectedFile ? (
+                  <span>Arquivo selecionado: <strong>{selectedFile.name}.{selectedFile.extension} - ({(selectedFile.size / 1024).toFixed(2)} KB)</strong></span>
+                ) : (
+                  <span>Nenhum arquivo selecionado</span>
+                )}
+            </div>
+
           </div>
           <br />
-          <div className="form-actions">
-            <button type="button" className="btn">
-              Cancelar
-            </button>
-            <button type="submit" className="btn btn-primary">
-              Adicionar Documento
-            </button>
-            </div>
+          <FormActions />
         </form>
       </div>
     </main>

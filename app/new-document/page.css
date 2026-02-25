@@ -28,13 +28,13 @@
 .form label {
   display: block;
   margin-bottom: .6rem;
-  font-weight: 600;
-  color: var(--text-primary);
+  font-weight: 500;
+  color: var(--text-secondary);
 }
-/* 
+
 .form{
-   
-} */
+   padding-block: 1.2rem;
+}
 
 .form-inputs{
     display: grid;
@@ -77,6 +77,13 @@
 
 .input-image .icon {
     color: #ff6b35;
+}
+.selected-file{
+    grid-column: 2 / 3;
+    background-color: #ffd3c2;
+    color: #33150b;
+    padding: 1rem;
+    border-radius: 8px;
 }
 
 .form-actions{

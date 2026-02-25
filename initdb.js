@@ -1,11 +1,9 @@
-const Database = require('better-sqlite3');
-const path = require('path');
+import Database from 'better-sqlite3';
 
-// location of the sqlite file.  You can change this as needed.
-const dbFile = path.join(__dirname, 'data.sqlite');
+const dbFile = "database.sqlite";
 
 // open (or create) the database
-const db = new Database(dbFile);
+const db = new Database(dbFile, { verbose: console.log });
 
 // make sure foreign keys are enforced
 db.pragma('foreign_keys = ON');
@@ -88,4 +86,4 @@ const insertState = db.prepare('INSERT OR IGNORE INTO Estado (nome_estado) VALUE
 console.log('SQLite database initialized at', dbFile);
 
 // export the database connection for other modules
-module.exports = db;
+export default db;
