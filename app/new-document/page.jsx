@@ -1,7 +1,7 @@
 'use client'
 import "./page.css";
 import PageHeader from "@/components/ui-components/PageHeader";
-import FormActions from "@/components/ui-components/formActions";
+import FormActions from "@/components/ui-components/FormActions";
 import { useRef, useState } from "react";
 import { useFormState } from "react-dom";
 import { createDocument } from "@/lib/actions";
