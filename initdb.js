@@ -1,89 +1,102 @@
-import Database from 'better-sqlite3';
+import Database from "better-sqlite3";
 
 const dbFile = "database.sqlite";
 
-// open (or create) the database
-const db = new Database(dbFile, { verbose: console.log });
+const db = new Database(dbFile,
+  //  { verbose: console.log }
+  );
 
-// make sure foreign keys are enforced
-db.pragma('foreign_keys = ON');
+db.pragma("foreign_keys = ON");
 
-// initialize schema
 const schema = `
 -- departments
-CREATE TABLE IF NOT EXISTS Departamento (
-  id_departamento   INTEGER PRIMARY KEY AUTOINCREMENT,
-  nome              TEXT NOT NULL,
-  descricao         TEXT,
+CREATE TABLE IF NOT EXISTS Department (
+  id_department     INTEGER PRIMARY KEY AUTOINCREMENT,
+  name              TEXT NOT NULL,
+  description       TEXT,
   email             TEXT
 );
 
 -- users
-CREATE TABLE IF NOT EXISTS Utilizador (
-  id_utilizador     INTEGER PRIMARY KEY AUTOINCREMENT,
-  senha             TEXT NOT NULL,
-  nivel_acesso      INTEGER NOT NULL DEFAULT 0,
-  id_departamento   INTEGER,
-  FOREIGN KEY (id_departamento) REFERENCES Departamento(id_departamento)
+CREATE TABLE IF NOT EXISTS User (
+  id_user           INTEGER PRIMARY KEY AUTOINCREMENT,
+  password          TEXT NOT NULL,
+  access_level      INTEGER NOT NULL DEFAULT 0,
+  id_department     INTEGER,
+  FOREIGN KEY (id_department) REFERENCES Department(id_department)
 );
 
 -- categories
-CREATE TABLE IF NOT EXISTS Categoria (
-  id_categoria      INTEGER PRIMARY KEY AUTOINCREMENT,
-  nome_categoria    TEXT NOT NULL
+CREATE TABLE IF NOT EXISTS Category (
+  id_category       INTEGER PRIMARY KEY AUTOINCREMENT,
+  category_name     TEXT NOT NULL
 );
 
 -- documents
-CREATE TABLE IF NOT EXISTS Documento (
-  id_documento      INTEGER PRIMARY KEY AUTOINCREMENT,
-  titulo            TEXT NOT NULL,
-  descricao         TEXT NOT NULL,
-  data_criacao      TEXT NOT NULL DEFAULT (datetime('now')),
-  data_actualizacao TEXT,
+CREATE TABLE IF NOT EXISTS Document (
+  id_document       INTEGER PRIMARY KEY AUTOINCREMENT,
+  title             TEXT NOT NULL,
+  description       TEXT NOT NULL,
+  created_at        TEXT NOT NULL DEFAULT (datetime('now')),
+  updated_at        TEXT,
   link              TEXT,          -- url to file stored in S3 or public folder
-  id_categoria      INTEGER,
-  id_utilizador     INTEGER,
-  FOREIGN KEY (id_categoria) REFERENCES Categoria(id_categoria),
-  FOREIGN KEY (id_utilizador) REFERENCES Utilizador(id_utilizador)
+  id_category       INTEGER,
+  id_user           INTEGER,
+  FOREIGN KEY (id_category) REFERENCES Category(id_category),
+  FOREIGN KEY (id_user) REFERENCES User(id_user)
 );
 
 -- states for requests
-CREATE TABLE IF NOT EXISTS Estado (
-  id_estado         INTEGER PRIMARY KEY AUTOINCREMENT,
-  nome_estado       TEXT NOT NULL
+CREATE TABLE IF NOT EXISTS Status (
+  id_status         INTEGER PRIMARY KEY AUTOINCREMENT,
+  status_name       TEXT NOT NULL
 );
 
 -- requests
-CREATE TABLE IF NOT EXISTS Pedido (
-  id_pedido         INTEGER PRIMARY KEY AUTOINCREMENT,
-  data_criacao      TEXT NOT NULL DEFAULT (datetime('now')),
-  descricao         TEXT,
-  id_documento      INTEGER NOT NULL,
-  id_departamento   INTEGER NOT NULL,
-  id_estado         INTEGER NOT NULL,
-  FOREIGN KEY (id_documento)   REFERENCES Documento(id_documento),
-  FOREIGN KEY (id_departamento) REFERENCES Departamento(id_departamento),
-  FOREIGN KEY (id_estado)      REFERENCES Estado(id_estado)
+CREATE TABLE IF NOT EXISTS Request (
+  id_request        INTEGER PRIMARY KEY AUTOINCREMENT,
+  created_at        TEXT NOT NULL DEFAULT (datetime('now')),
+  description       TEXT,
+  id_document       INTEGER NOT NULL,
+  id_department     INTEGER NOT NULL,
+  id_status         INTEGER NOT NULL,
+  FOREIGN KEY (id_document)   REFERENCES Document(id_document),
+  FOREIGN KEY (id_department) REFERENCES Department(id_department),
+  FOREIGN KEY (id_status)     REFERENCES Status(id_status)
 );
 
 -- archive
-CREATE TABLE IF NOT EXISTS Arquivo (
-  id_arquivo        INTEGER PRIMARY KEY AUTOINCREMENT,
-  data_arquivamento TEXT NOT NULL DEFAULT (datetime('now')),
-  observacao        TEXT,
-  id_documento      INTEGER UNIQUE,
-  FOREIGN KEY (id_documento) REFERENCES Documento(id_documento)
+CREATE TABLE IF NOT EXISTS Archive (
+  id_archive        INTEGER PRIMARY KEY AUTOINCREMENT,
+  archived_at       TEXT NOT NULL DEFAULT (datetime('now')),
+  observation       TEXT,
+  id_document       INTEGER UNIQUE,
+  FOREIGN KEY (id_document) REFERENCES Document(id_document)
 );
 `;
 
-// run the schema creation
+
 db.exec(schema);
 
-// seed default states if they do not exist
-const insertState = db.prepare('INSERT OR IGNORE INTO Estado (nome_estado) VALUES (?)');
-['Pendente', 'Aprovado', 'Rejeitado'].forEach(state => insertState.run(state));
+const insertStatus = db.prepare(
+  "INSERT OR IGNORE INTO Status (status_name) VALUES (?)",
+);
+["Pending", "Approved", "Rejected"].forEach((status) =>
+  insertStatus.run(status),
+);
 
-console.log('SQLite database initialized at', dbFile);
+const insert = db.prepare("INSERT INTO Category (category_name) VALUES (?)");
+const insertMany = db.transaction((categories) => {
+  for (const category of categories) insert.run(category);
+});
 
-// export the database connection for other modules
+db.prepare("DELETE FROM Category").run();
+
+insertMany(["FINANCEIRO".toUpperCase(), "RECURSOS HUMANOS".toUpperCase()]);
+
+console.log("SQLite database initialized at", dbFile);
+
 export default db;
+
+// // Add search field to documents. search_field to help find them
+// db.prepare('ALTER TABLE Document ADD COLUMN search_field TEXT NOT NULL').run();
