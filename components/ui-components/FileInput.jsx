@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useRef, useState } from "react";
 
 export default function FileInput({ name }) {
@@ -20,6 +20,7 @@ export default function FileInput({ name }) {
       name: file.name.split(".").slice(0, -1).join("."),
       extension: file.name.split(".").pop(),
       size: file.size,
+      url: URL.createObjectURL(file),
     };
 
     setSelectedFile(fileData);
@@ -48,10 +49,12 @@ export default function FileInput({ name }) {
         {selectedFile ? (
           <span>
             Arquivo selecionado:{" "}
-            <strong>
-              {selectedFile.name}.{selectedFile.extension} - (
-              {(selectedFile.size / 1024).toFixed(2)} KB)
-            </strong>
+            <a href={selectedFile.url} className="selected-file--link">
+              <strong>
+                {selectedFile.name}.{selectedFile.extension} - (
+                {(selectedFile.size / 1024).toFixed(2)} KB)
+              </strong>
+            </a>
           </span>
         ) : (
           <span>Nenhum arquivo selecionado</span>

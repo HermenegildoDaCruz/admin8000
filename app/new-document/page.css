@@ -86,6 +86,17 @@
     border-radius: 8px;
 }
 
+.selected-file--link{
+    text-decoration: none;
+}
+
+.selected-file--link:hover,
+.selected-file--link:active
+{
+    text-decoration: underline;
+}
+
+
 .form-actions{
     display: flex;
     justify-content: flex-end;
