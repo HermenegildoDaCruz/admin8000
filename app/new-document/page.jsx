@@ -8,6 +8,7 @@ import { createDocument, getCategories} from "@/lib/actions";
 
 export default async function NewDocument() {
   const categories = await getCategories();
+
   return (
     <main>
       <PageHeader
