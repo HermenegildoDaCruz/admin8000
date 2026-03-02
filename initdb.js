@@ -1,10 +1,15 @@
 import Database from "better-sqlite3";
 
 const dbFile = "database.sqlite";
+const globalDb = globalThis
 
-const db = new Database(dbFile,
+const db = globalDb.sqlite || new Database(dbFile,
   //  { verbose: console.log }
   );
+
+if (process.env.NODE_ENV !== "production") {
+  globalDb.sqlite = db;
+}
 
 db.pragma("foreign_keys = ON");
 
