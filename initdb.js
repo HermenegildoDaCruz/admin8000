@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS Document (
   created_at        TEXT NOT NULL DEFAULT (datetime('now')),
   updated_at        TEXT,
   link              TEXT,          -- url to file stored in S3 or public folder
-  id_category       INTEGER,
+  id_category       INTEGER, -- DEPARTAMENT
   id_user           INTEGER,
   FOREIGN KEY (id_category) REFERENCES Category(id_category),
   FOREIGN KEY (id_user) REFERENCES User(id_user)

@@ -4,11 +4,10 @@ import FormActions from "@/components/ui-components/FormActions";
 import SelectCategory from "@/components/ui-components/SelectCategory";
 import FileInput from "@/components/ui-components/FileInput";
 import ClientForm from "@/components/ui-components/ClientForm";
-import { createDocument, getCategories} from "@/lib/actions";
+import { createDocument, getCategories, getUsers} from "@/lib/actions";
 
 export default async function NewDocument() {
   const categories = await getCategories();
-
   return (
     <main>
       <PageHeader
@@ -41,6 +40,7 @@ export default async function NewDocument() {
                   id="description"
                   name="description"
                   placeholder="Descreva o documento"
+                  required
                 ></textarea>
               </div>
             </div>

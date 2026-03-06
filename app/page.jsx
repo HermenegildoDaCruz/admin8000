@@ -1,23 +1,17 @@
 import './page.css';
-import PageHeader from "@/components/ui-components/PageHeader";
-
+import Link from 'next/link';
+import PageHeader from '@/components/ui-components/PageHeader';
+import { getDocuments } from '@/lib/actions';
 const bgTransparency = 0.2
 
-export default function Overview() {
+export default async function Overview() {
+  const documents = await getDocuments()
   const stats = [
-    { label: 'DOCUMENTOS', value: '1,284', change: '+32%', iconName: 'document-text-outline', color: '#ff6b35', backgroundColor: `rgba(255, 107, 53, ${bgTransparency})` },
+    { label: 'DOCUMENTOS', value: documents.length, change: '+32%', iconName: 'document-text-outline', color: '#ff6b35', backgroundColor: `rgba(255, 107, 53, ${bgTransparency})` },
     { label: 'PEDIDOS PENDENTES', value: '14', change: '+5%', iconName: 'document-lock-outline', color: '#ff9500', backgroundColor:`rgba(255, 149, 0, ${bgTransparency})`},
     { label: 'DEPARTAMENTOS', value: '12', change: '0%', iconName: 'business-outline', color: '#2196f3', backgroundColor:`rgba(33, 149, 243, ${bgTransparency})`},
     { label: 'UTILIZADORES', value: '48', change: '-2%', iconName: 'people-outline', color: '#9c27b0', backgroundColor: `rgba(155, 39, 176, ${bgTransparency})`},
   ];
-
-  const recentDocuments = [
-    { name: 'Relatório Financeiro Q3', category: 'FINANCEIRO', dept: 'Administração', status: 'CONCLUÍDO' },
-    { name: 'Manual do Colaborador', category: 'RH', dept: 'Recursos Humanos', status: 'PENDENTE' },
-    { name: 'Contrato Prestação de Serviços', category: 'JURÍDICO', dept: 'Legal', status: 'CONCLUÍDO' },
-    { name: 'Project Specification v2', category: 'TI', dept: 'Desenvolvimento', status: 'REVISÃO' },
-  ];
-
 
   return (
     <main className="dashboard">
@@ -47,27 +41,32 @@ export default function Overview() {
         <table className="documents-table">
           <thead>
             <tr>
+              <th>ID</th> 
               <th>NOME DO ARQUIVO</th>
-              <th>CATEGORIA</th>
               <th>DEPARTAMENTO</th>
-              <th>STATUS</th>
+              <th>VISUALIZAR</th>
             </tr>
           </thead>
           <tbody>
-            {recentDocuments.map((doc, index) => (
-              <tr key={index}>
+            {documents?.map((doc) => (
+              <tr key={doc.id_document}>
+                <td>
+                  <Link href="">
+                    {doc.id_document}
+                  </Link>
+                </td>
                 <td>
                   <div className="document-name">
                     <ion-icon name="document-text" className="icon"></ion-icon>
-                    {doc.name}
+                    {doc.title}
                   </div>
                 </td>
-                <td>{doc.category}</td>
-                <td>{doc.dept}</td>
+                <td>CATEGORY</td>
                 <td>
-                  <span className={`status-badge status-${doc.status.toLowerCase()}`}>
-                    {doc.status}
-                  </span>
+                  <Link href={doc.link} target='_blank'>
+                     {/* className={`status-badge status-${doc.status.toLowerCase()}`} */}
+                    Ver
+                  </Link>
                 </td>
               </tr>
             ))}
