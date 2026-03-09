@@ -119,6 +119,7 @@
 }
 
 .documents-table td {
+  color: rgba(0, 0, 0, 0.719);
   padding: 1.5rem 1.2rem;
   border-bottom: 1px solid var(--border-color);
   font-size: 1.4rem;
@@ -128,12 +129,16 @@
   background-color: var(--bg-light);
 }
 
+.documents-table a:hover,
+.documents-table a:active{
+  text-decoration: underline;
+}
+
 .document-name {
   display: flex;
   align-items: center;
   gap: 1rem;
   color: var(--text-primary);
-  font-weight: 500;
 }
 
 .document-name .icon{

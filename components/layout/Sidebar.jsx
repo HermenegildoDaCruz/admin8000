@@ -24,13 +24,7 @@ const menuItems = [
       iconName: "people-outline",
       href: "/users",
     },
-    {
-      id: 5,
-      label: "Categorias",
-      iconName: "pricetag-outline",
-      href: "/categories",
-    },
-    { id: 6, label: "Arquivo", iconName: "archive-outline", href: "/archive" },
+    { id: 5, label: "Arquivo", iconName: "archive-outline", href: "/archive" },
   ];
 
 export default function Sidebar() {
