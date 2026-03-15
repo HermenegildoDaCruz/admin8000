@@ -20,8 +20,8 @@ export default async function Overview() {
       <PageHeader title="Visão Geral" description="Resumo do sistema e atividade recente." />
 
       <div className="stats-grid">
-        {stats.map((stat, index) => (
-          <div key={index} className="stat-card">
+        {stats.map((stat) => (
+          <div key={stat.label} className="stat-card">
             <div className="stat-header">
               <span className="stat-label">{stat.label}</span>
               <span className="stat-icon" style={{ color: stat.color, backgroundColor: stat.backgroundColor }}><ion-icon name={stat.iconName} className="icon"></ion-icon></span>

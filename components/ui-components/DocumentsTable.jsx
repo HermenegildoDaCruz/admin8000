@@ -18,7 +18,7 @@ export default function DocumentsTable({documents}){
             {documents.map((doc) => (
               <tr key={doc.id_document}>
                 <td>
-                  <Link href="">
+                  <Link href={`documents/${doc.id_document}`}>
                     {doc.id_document}
                   </Link>
                 </td>
