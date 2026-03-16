@@ -3,7 +3,7 @@
   --background: #ffffff;
   --foreground: #171717;
   --primary-color: #ff6b35;
-  --text-primary: #1a1a1a;
+  --text-primary: #343a40;
   --text-secondary: #666;
   --border-color: #e0e0e0;
   --bg-light: #f7f7f7;
@@ -102,6 +102,14 @@ a{
 .icon{
   width: 3rem;
   height: 3rem;
+}
+.grid{
+  display: grid;
+} 
+
+.grid-2{
+  grid-template-columns: 2fr 1fr;
+  gap: 3.2rem;
 }
 
 .btn {
